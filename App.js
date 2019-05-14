@@ -1,22 +1,14 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
+
+import WelcomeScreen from './src/screens/Welcome/Welcome';
+import store from './src/store/configureStore';
+import startSingleScreenApp from './src/startSingleScreenApp';
 
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Welcome to React Native LJ!</Text>
-      </View>
-    );
-  }
+Navigation.registerComponent('agenda.WelcomeScreen', () => WelcomeScreen, store, Provider);
+
+// Start App
+export default () => {
+   startSingleScreenApp();
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
