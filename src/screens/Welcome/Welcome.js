@@ -29,5 +29,4 @@ const mapStateToProps = state => {
 }
 
 
-// export default connect(mapStateToProps, null)(WelcomeScreen);
-export default WelcomeScreen;
+export default connect(mapStateToProps, null)(WelcomeScreen);
