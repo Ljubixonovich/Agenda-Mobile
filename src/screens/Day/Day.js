@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
-import { getFormatedDate, compareDates } from '../../helpers/dates';
+import { getFormatedDate, compareDates, getDates, getDateArray } from '../../helpers/dates';
 import { mockTasks } from '../../helpers/mockTasks';
 
 export class DayScreen extends Component {
@@ -16,35 +16,11 @@ export class DayScreen extends Component {
       super(props);
    }
 
-   nextDayHandler = () => {
-      const currentDate = this.props.date;
-      let nextDay = new Date(currentDate.getTime() + 86400000);
-      this.props.navigator.resetTo({
-         screen: 'agenda.DayScreen',
-         title: 'Agenda',
-         animated: true,
-         animationType: 'slide-horizontal',
-         passProps: {
-            date: nextDay
-         }
-      });
-   }
 
-   previousDayHandler = () => {
-      const currentDate = this.props.date;
-      let previousDay = new Date(currentDate.getTime() - 86400000);
-      this.props.navigator.resetTo({
-         screen: 'agenda.DayScreen',
-         title: 'Agenda',
-         animated: true,
-         animationType: 'fade',
-         passProps: {
-            date: previousDay
-         }
-      });
-   }
-
-   
+   lj = () => {    
+    let niz = getDateArray();
+    console.log(niz);
+   }   
 
 
    render() {
@@ -52,9 +28,7 @@ export class DayScreen extends Component {
       return (
          <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
-               <Text> Day: {this.state.displayDate} </Text>
-               <Button title='Next Day' onPress={this.nextDayHandler}></Button>
-               <Button title='Previous Day' onPress={this.previousDayHandler}></Button>
+               <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 24}}> Day: {this.state.displayDate} </Text>
             </View>
             <View style={{ flex: 2 }}>
                <FlatList

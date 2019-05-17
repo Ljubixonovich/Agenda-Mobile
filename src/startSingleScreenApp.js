@@ -6,7 +6,7 @@ import { getToday } from './helpers/dates';
 const startSingleScreenApp = () => {
    Navigation.startSingleScreenApp({
       screen: {
-         screen: 'agenda.DayScreen',
+         screen: 'agenda.DayContainer',
          title: 'Agenda'
       },
       appStyle: {
