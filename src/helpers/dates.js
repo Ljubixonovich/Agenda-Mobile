@@ -13,3 +13,9 @@ export const compareDates = (date1, date2) => {
    else if (date1 < date2) return false;
    else return true;
 }
+
+export const getToday = () => {
+   let today = new Date();
+   today.setHours(0, 0, 0, 0);
+   return today;
+}

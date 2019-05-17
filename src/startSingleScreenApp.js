@@ -1,9 +1,7 @@
 import { Navigation } from 'react-native-navigation';
 
-// import today from './helpers/dates';
+import { getToday } from './helpers/dates';
 
-let today = new Date();
-today.setHours(0, 0, 0, 0);
 
 const startSingleScreenApp = () => {
    Navigation.startSingleScreenApp({
@@ -12,11 +10,11 @@ const startSingleScreenApp = () => {
          title: 'Agenda'
       },
       appStyle: {
-         orientation: 'portrait'
+         orientation: 'portrait',
+         navBarTitleTextCentered: true,
       },
       passProps: {
-         // date: new Date()
-         date: today
+         date: getToday()
       }
    });
 }
