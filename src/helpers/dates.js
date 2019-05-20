@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'moment/locale/sr';
+
 export const getFormatedDate = (date) => {
    let dd = String(date.getDate()).padStart(2, '0');
    let mm = String(date.getMonth() + 1).padStart(2, '0');
@@ -5,6 +8,12 @@ export const getFormatedDate = (date) => {
 
    let today = `${dd}. ${mm}. ${yyyy}.`;
    return today;
+}
+
+
+export const getFormatedDate2 = (date) => {
+   let response = moment(date).lang('sr').format('dddd D. MMM');
+   return response
 }
 
 export const compareDates = (date1, date2) => {
@@ -41,3 +50,5 @@ export const getDateArray = () => {
    }
    return days;
 }
+
+

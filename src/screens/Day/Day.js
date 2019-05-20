@@ -2,33 +2,31 @@ import React, { Component } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
-import { getFormatedDate, compareDates, getDates, getDateArray } from '../../helpers/dates';
+import { getFormatedDate, getFormatedDate2, compareDates, getToday } from '../../helpers/dates';
 import { mockTasks } from '../../helpers/mockTasks';
 
 export class DayScreen extends Component {
 
    state = {
       date: this.props.date,
-      displayDate: getFormatedDate(this.props.date)
+      displayDate: getFormatedDate2(this.props.date)
    }
 
    constructor(props) {
       super(props);
    }
-
-
-   lj = () => {    
-    let niz = getDateArray();
-    console.log(niz);
-   }   
+ 
 
 
    render() {
       let tasks = mockTasks.filter(t => compareDates(t.date, this.props.date));
+      tasks = tasks.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
       return (
          <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
-               <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 24}}> Day: {this.state.displayDate} </Text>
+               <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 24}}>{this.state.displayDate} </Text>
+                           
+
             </View>
             <View style={{ flex: 2 }}>
                <FlatList
@@ -43,6 +41,7 @@ export class DayScreen extends Component {
                            <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
                            <Text>Title: {task.item.title}</Text>
                            <Text>Time: {task.item.time}</Text>
+                           <Text>Desc: {task.item.description}</Text>
                            <Text>----------------------</Text>
                         </View>
                      );
