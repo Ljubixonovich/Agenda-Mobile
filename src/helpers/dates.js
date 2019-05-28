@@ -12,7 +12,7 @@ export const getFormatedDate = (date) => {
 
 
 export const getFormatedDate2 = (date) => {
-   let response = moment(date).lang('sr').format('dddd D. MMM');
+   let response = moment(date).locale('sr').format('dddd D. MMM');
    return response
 }
 

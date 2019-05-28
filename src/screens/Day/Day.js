@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Text, Button, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getFormatedDate, getFormatedDate2, compareDates, getToday } from '../../helpers/dates';
 import { mockTasks } from '../../helpers/mockTasks';
+import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING } from '../../store/actions/actionTypes';
 
 export class DayScreen extends Component {
 
@@ -15,18 +16,44 @@ export class DayScreen extends Component {
    constructor(props) {
       super(props);
    }
+
+   componentDidMount() {
+      this.props.getTasks();
+   }
  
+   onAddTaskHandler = () => {
+      let task = {
+         id: 'id12',
+         title: 'Probni task 2',
+         date: new Date(2019, 4, 28),
+         time: '9.45',
+         important: false,
+         description: ''
+      };
+      this.props.onAddTask(task);
+   }
 
 
    render() {
-      let tasks = mockTasks.filter(t => compareDates(t.date, this.props.date));
+      if (this.props.isLoading) {
+         return (
+            <View style={{flex: 1}}>
+               <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+         );
+      } 
+      
+      let tasks = this.props.tasks.filter(t => compareDates(t.date, this.props.date));
+      console.log(tasks);     
+      // let tasks = mockTasks.filter(t => compareDates(t.date, this.props.date));
+
       tasks = tasks.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
       return (
          <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 24}}>{this.state.displayDate} </Text>
                            
-
+               <Button title='add task' onPress={this.onAddTaskHandler} />
             </View>
             <View style={{ flex: 2 }}>
                <FlatList
@@ -53,12 +80,22 @@ export class DayScreen extends Component {
    }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+   return {
+      tasks: state.tasks.tasks,
+      isLoading: state.ui.isLoading
+   };
+};
 
-})
-
-const mapDispatchToProps = {
-
+const mapDispatchToProps = dispatch => {
+   return {
+      getTasks: () => dispatch({type: GET_TASKS_SAGA}),
+      onAddTask: (task) => dispatch({
+         type: ADD_TASK_SAGA,
+         payload: task
+      }),
+      doSomething: () => dispatch({type: DO_SOMETHING})
+   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DayScreen);
