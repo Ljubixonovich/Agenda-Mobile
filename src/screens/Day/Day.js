@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, Button, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
-import { getFormatedDate, getFormatedDate2, compareDates, getToday } from '../../helpers/dates';
-import { mockTasks } from '../../helpers/mockTasks';
-import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING } from '../../store/actions/actionTypes';
+import { getSerbianDate } from '../../helpers/dates';
 
 export class DayScreen extends Component {
 
    state = {
       date: this.props.date,
-      displayDate: getFormatedDate2(this.props.date)
+      displayDate: getSerbianDate(this.props.date)
    }
 
    constructor(props) {
@@ -21,9 +19,9 @@ export class DayScreen extends Component {
    onAddTaskHandler = () => {
       let task = {
          id: '',
-         title: 'Probni task 2',
-         date: new Date(2019, 4, 30),
-         time: '9.25',
+         title: 'Juni task',
+         date: new Date(2019, 5, 1),
+         time: '9.15',
          important: false,
          description: ''
       };
@@ -37,18 +35,10 @@ export class DayScreen extends Component {
 
    render() {     
       const { tasks } = this.props;
-      if (tasks.length > 0) {
-         console.log('1: ' + tasks[0]);
-         console.log('2:' + tasks[0]['title']);
-         console.log('2b:' + tasks[0].title);
-      }
       
       return (
          <View style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-               <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 24}}>
-                  {this.state.displayDate} 
-               </Text>                           
+            <View style={{ flex: 1, paddingTop: 10 }}>
                <Button title='add task' onPress={this.onAddTaskHandler} />
                <Button title='get last ID' onPress={this.lj} />
             </View>
@@ -71,36 +61,13 @@ export class DayScreen extends Component {
                         );
                      }}
                   />
-                   : null
-
-                  // <Text> ima {tasks.length}</Text>
-                  // : <Text>nema</Text>                
-
+                   : null     
                }
-
             </View>
          </View>
       )
    }
 }
-
-// const mapStateToProps = (state) => {
-//    return {
-//       tasks: state.tasks.tasks,
-//       isLoading: state.ui.isLoading
-//    };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//    return {
-//       getTasks: () => dispatch({type: GET_TASKS_SAGA}),
-//       onAddTask: (task) => dispatch({
-//          type: ADD_TASK_SAGA,
-//          payload: task
-//       }),
-//       doSomething: () => dispatch({type: DO_SOMETHING})
-//    }
-// }
 
 
 const mapStateToProps = (state) => ({

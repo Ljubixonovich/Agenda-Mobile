@@ -11,14 +11,12 @@ const reducer = (state = initialState, action) => {
          if (state.tasks.length > 0) {
             return {
                ...state,
-               // tasks: action.tasks
                tasks: state.tasks
             }
          } else {
             return {
                ...state,
                tasks: action.tasks
-               // tasks: state.tasks
             }
          }
          

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING } from '../../store/actions/actionTypes';
 import DayScreen from './Day';
-import { getFormatedDate, getFormatedDate2, getDateArray, compareDates, getToday } from '../../helpers/dates';
+import { getFormatedDate, getSerbianDate, getDateArray, compareDates, getToday } from '../../helpers/dates';
 import { daysBeforeToday } from '../../helpers/constants';
 
 export class DayContainer extends Component {
@@ -28,7 +28,6 @@ export class DayContainer extends Component {
       const { tasks } = this.props;
       let filteredTasks = [];
       if (tasks && tasks.length > 0) {
-      console.log('task.length: ' + tasks.length + '; task[0].date: ' + tasks[0].date);
       }
       filteredTasks = tasks
          .filter(t => compareDates(t.date, date))
@@ -49,13 +48,17 @@ export class DayContainer extends Component {
       return (
          <ScrollableTabView
             tabBarPosition='top'
+            tabBarTextStyle={{fontSize: 30, color: 'black'}}
             initialPage={daysBeforeToday()}
             prerenderingSiblingsNumber={5}
-            renderTabBar={() => <ScrollableTabBar style={{ backgroundColor: 'transparent' }} />}
+            tabBarUnderlineStyle=
+               {{ backgroundColor:'#ff0000', height:0, }}
+            renderTabBar={() => 
+               <ScrollableTabBar style={{backgroundColor: 'transparent' }} />}
          >
             {this.state.datesList.map((date) =>
                <View style={{ flex: 1 }}
-                  tabLabel={getFormatedDate2(date)}
+                  tabLabel={getSerbianDate(date) + ' 2019.'}
                   key={date.toString()}
                >
                   <DayScreen 

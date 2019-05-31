@@ -11,11 +11,6 @@ import {
 import * as api from '../../helpers/asyncStorage';
 
 function* getTasks(action) {
-   // yield put({ type: UI_START_LOADING});
-   // yield put({ type: UI_STOP_LOADING});
-
-   // yield call to database
-   // let tasks = mockTasks;
    
    try {
       let tasks = yield call(api.getAllTasks);
@@ -32,20 +27,11 @@ function* addTask(action) {
 
    try {
      yield call(api.addTask, action.payload);
-     
-      console.log('jel posle ovog greska?');
 
-      yield put({ type: ADD_TASK_REDUCER, task: action.payload});
-      
-      console.log('kraj?');
-
+      yield put({ type: ADD_TASK_REDUCER, task: action.payload});      
    } catch (error) {
-      console.log('kanda je ova greska!');
-      console.log(error);
+      console.log('error saga addTask');
    }
-
-   // console.log('1: ' + JSON.stringify(action));
-   // api.addTask(action.payload);
 }
 
 

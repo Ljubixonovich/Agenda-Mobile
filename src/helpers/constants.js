@@ -1,3 +1,3 @@
-export const daysBeforeToday = () => 10;
+export const daysBeforeToday = () => 120;
 
-export const numberOfDays = () => 50;
+export const numberOfDays = () => 366;
