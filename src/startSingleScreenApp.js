@@ -13,9 +13,9 @@ const startSingleScreenApp = () => {
          orientation: 'portrait',
          navBarTitleTextCentered: true,
       },
-      passProps: {
-         date: getToday()
-      }
+      // passProps: {
+      //    date: getToday()
+      // }
    });
 }
 

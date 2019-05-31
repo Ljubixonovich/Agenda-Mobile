@@ -1,22 +1,30 @@
 import moment from 'moment';
 import 'moment/locale/sr';
 
+import { daysBeforeToday, numberOfDays } from '../helpers/constants';
+
 export const getFormatedDate = (date) => {
+   console.log('getFormatedDate pozvan');
+   // console.log(date);
    let dd = String(date.getDate()).padStart(2, '0');
    let mm = String(date.getMonth() + 1).padStart(2, '0');
    let yyyy = date.getFullYear();
 
-   let today = `${dd}. ${mm}. ${yyyy}.`;
-   return today;
+   let response = `${dd}. ${mm}. ${yyyy}.`;
+   return response;
 }
 
 
-export const getFormatedDate2 = (date) => {
+export const getFormatedDate2 = (date) => {   
    let response = moment(date).locale('sr').format('dddd D. MMM');
-   return response
+   return response;
+   // Ponedeljak 15. 12.
 }
 
 export const compareDates = (date1, date2) => {
+   console.log('compareDates pozvan: ');
+   console.log('date1: ' + date1);
+   console.log('date2: ' + date2);
    if (date1 > date2) return false;
    else if (date1 < date2) return false;
    else return true;
@@ -37,8 +45,10 @@ const addDays = (date, days) => {
 
 export const getDateArray = () => {
    let today = getToday();
-   let start = addDays(today, -180);
-   let end = addDays(today, 366);
+   let start = addDays(today, (daysBeforeToday() - (2 * daysBeforeToday())));
+   let end = addDays(today, numberOfDays());
+   // let start = addDays(today, -10);
+   // let end = addDays(today, 50);
 
    let days = new Array();
    let date = new Date(start);
