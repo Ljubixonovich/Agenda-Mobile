@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
+import Btn from '../../components/UI/ButtonWithBackground';
 
 export class DayScreen extends Component {
 
@@ -15,13 +16,13 @@ export class DayScreen extends Component {
       super(props);
    }
 
-    
+
    onAddTaskHandler = () => {
       let task = {
          id: '',
-         title: 'Juni task',
+         title: 'Stan task',
          date: new Date(2019, 5, 1),
-         time: '9.15',
+         time: '9.05',
          important: false,
          description: ''
       };
@@ -32,42 +33,71 @@ export class DayScreen extends Component {
       this.props.getLastId();
    }
 
+   connfirmDeleteTask = (id) => {
+      Alert.alert('', 'Delete task ?', [
+         {text: 'yes', onPress: () => this.props.onDeleteTask(id)},
+         {text: 'no'},
+      ]);
+   }
 
-   render() {     
-      const { tasks } = this.props;
-      
+
+   render() {
+      const { tasks, date } = this.props;
+
       return (
          <View style={{ flex: 1 }}>
-            <View style={{ flex: 1, paddingTop: 10 }}>
-               <Button title='add task' onPress={this.onAddTaskHandler} />
-               <Button title='get last ID' onPress={this.lj} />
+            <View style={styles.headerContainer}>
+
+               <Text style={{ width: 50 }}></Text>
+               <Text style={styles.mainTitle}>
+                  {getSerbianDate(date)}
+               </Text>
+               <Btn width={50} onPress={this.onAddTaskHandler}>
+                  +
+               </Btn>
+
             </View>
-            <View style={{ flex: 2 }}>
-               {tasks.length > 0 ? 
+            <View style={{ flex: 5 }}>
+               {tasks.length > 0 ?
                   <FlatList
                      data={tasks}
                      keyExtractor={(task) => task.id}
                      showsVerticalScrollIndicator={false}
                      renderItem={(task) => {
-                        return (
+                        let id = task.item.id;
+                        return (                           
                            <View style={{ flex: 1 }}>
-                              <Text>{task.item.id}</Text>
+                              <Text>{id}</Text>
                               <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
                               <Text>Title: {task.item.title}</Text>
                               <Text>Time: {task.item.time}</Text>
                               <Text>Desc: {task.item.description}</Text>
+                              <Btn width={50} onPress={() => { this.connfirmDeleteTask(id) }}>X</Btn>
                               <Text>----------------------</Text>
                            </View>
                         );
                      }}
                   />
-                   : null     
+                  : null
                }
             </View>
          </View>
       )
    }
 }
+
+const styles = StyleSheet.create({
+   headerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+   },
+   mainTitle: {
+      fontSize: 24,
+      textAlign: 'center',
+      color: 'black',
+   }
+})
 
 
 const mapStateToProps = (state) => ({

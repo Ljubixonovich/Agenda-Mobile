@@ -34,10 +34,10 @@ export const editTask = async (task) => {
 
 export const deleteTask = async (id) => {
    try {
-      await AsyncStorage.removeItem(id);
-      console.log('Task removed.');
+      await AsyncStorage.removeItem('@' + id);
+      console.log('Task deleted.');
    } catch (e) {
-      console.log('error with removing task');
+      console.log('error with deleting task');
    }
    
 }

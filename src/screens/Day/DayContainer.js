@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
-import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING } from '../../store/actions/actionTypes';
+import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING, DELETE_TASK_SAGA } from '../../store/actions/actionTypes';
 import DayScreen from './Day';
 import { getFormatedDate, getSerbianDate, getDateArray, compareDates, getToday } from '../../helpers/dates';
 import { daysBeforeToday } from '../../helpers/constants';
@@ -47,8 +47,8 @@ export class DayContainer extends Component {
 
       return (
          <ScrollableTabView
-            tabBarPosition='top'
-            tabBarTextStyle={{fontSize: 30, color: 'black'}}
+            tabBarPosition='overlayBottom'
+            tabBarTextStyle={{fontSize: 30, color: 'transparent'}}
             initialPage={daysBeforeToday()}
             prerenderingSiblingsNumber={5}
             tabBarUnderlineStyle=
@@ -65,6 +65,7 @@ export class DayContainer extends Component {
                      date={date} 
                      tasks={this.filterTasks(date)} 
                      onAddTask={this.props.onAddTask} 
+                     onDeleteTask={this.props.onDeleteTask}
                      getLastId={this.props.doSomething}
                   />
                </View>
@@ -87,6 +88,10 @@ const mapDispatchToProps = dispatch => {
       onAddTask: (task) => dispatch({
          type: ADD_TASK_SAGA,
          payload: task
+      }),
+      onDeleteTask: (id) => dispatch({
+         type: DELETE_TASK_SAGA,
+         payload: id
       }),
       doSomething: () => dispatch({ type: DO_SOMETHING })
    }

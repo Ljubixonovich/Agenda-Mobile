@@ -1,4 +1,4 @@
-import { REMOVE_TASK_REDUCER, GET_TASKS_REDUCER, ADD_TASK_REDUCER } from '../actions/actionTypes';
+import { DELETE_TASK_REDUCER, GET_TASKS_REDUCER, ADD_TASK_REDUCER } from '../actions/actionTypes';
 
 const initialState = {
    tasks: []
@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
             tasks: newTasks
          }   
 
-      case REMOVE_TASK_REDUCER:
+      case DELETE_TASK_REDUCER:
          return {
             ...state,
             tasks: state.tasks.filter(t => t.id !== action.id)
