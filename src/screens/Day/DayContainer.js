@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
-import { ADD_TASK_SAGA, GET_TASKS_SAGA, DO_SOMETHING, DELETE_TASK_SAGA } from '../../store/actions/actionTypes';
+import { GET_TASKS_SAGA, DO_SOMETHING, DELETE_TASK_SAGA } from '../../store/actions/actionTypes';
 import DayScreen from './Day';
 import { getFormatedDate, getSerbianDate, getDateArray, compareDates, getToday } from '../../helpers/dates';
 import { daysBeforeToday } from '../../helpers/constants';
@@ -64,9 +64,8 @@ export class DayContainer extends Component {
                   <DayScreen 
                      date={date} 
                      tasks={this.filterTasks(date)} 
-                     onAddTask={this.props.onAddTask} 
                      onDeleteTask={this.props.onDeleteTask}
-                     getLastId={this.props.doSomething}
+                     navigator={this.props.navigator}
                   />
                </View>
             )}
@@ -85,10 +84,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
    return {
       getTasks: () => dispatch({ type: GET_TASKS_SAGA }),
-      onAddTask: (task) => dispatch({
-         type: ADD_TASK_SAGA,
-         payload: task
-      }),
       onDeleteTask: (id) => dispatch({
          type: DELETE_TASK_SAGA,
          payload: id

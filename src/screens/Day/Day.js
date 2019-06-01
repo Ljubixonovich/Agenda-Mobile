@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
@@ -7,10 +7,6 @@ import Btn from '../../components/UI/ButtonWithBackground';
 
 export class DayScreen extends Component {
 
-   state = {
-      date: this.props.date,
-      displayDate: getSerbianDate(this.props.date)
-   }
 
    constructor(props) {
       super(props);
@@ -18,25 +14,16 @@ export class DayScreen extends Component {
 
 
    onAddTaskHandler = () => {
-      let task = {
-         id: '',
-         title: 'Stan task',
-         date: new Date(2019, 5, 1),
-         time: '9.05',
-         important: false,
-         description: ''
-      };
-      this.props.onAddTask(task);
-   }
-
-   lj = () => {
-      this.props.getLastId();
+      this.props.navigator.showModal({
+         screen: 'agenda.TaskModalScreen',
+         title: 'Add Task',
+         });
    }
 
    connfirmDeleteTask = (id) => {
       Alert.alert('', 'Delete task ?', [
          {text: 'yes', onPress: () => this.props.onDeleteTask(id)},
-         {text: 'no'},
+         {text: 'no'}
       ]);
    }
 
