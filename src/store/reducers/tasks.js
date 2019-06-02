@@ -19,14 +19,14 @@ const reducer = (state = initialState, action) => {
                tasks: action.tasks
             }
          }
-         
 
-      case ADD_TASK_REDUCER:         
+
+      case ADD_TASK_REDUCER:
          let newTasks = [...state.tasks, action.task];
          return {
             ...state,
             tasks: newTasks
-         }   
+         }
 
       case DELETE_TASK_REDUCER:
          return {

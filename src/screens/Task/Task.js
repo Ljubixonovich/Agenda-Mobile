@@ -12,7 +12,7 @@ export class TaskModalScreen extends Component {
       let task = {
          id: '',
          title: 'Stan task',
-         date: new Date(2019, 5, 1),
+         date: new Date(2019, 5, 2),
          time: '9.35',
          important: true,
          description: 'lorem ... '

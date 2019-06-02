@@ -17,6 +17,7 @@ export class DayScreen extends Component {
       this.props.navigator.showModal({
          screen: 'agenda.TaskModalScreen',
          title: 'Add Task',
+         animationType: 'fade'
          });
    }
 
@@ -53,14 +54,13 @@ export class DayScreen extends Component {
                      renderItem={(task) => {
                         let id = task.item.id;
                         return (                           
-                           <View style={{ flex: 1 }}>
+                           <View style={styles.taskContainer}>
                               <Text>{id}</Text>
                               <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
                               <Text>Title: {task.item.title}</Text>
                               <Text>Time: {task.item.time}</Text>
                               <Text>Desc: {task.item.description}</Text>
                               <Btn width={50} onPress={() => { this.connfirmDeleteTask(id) }}>X</Btn>
-                              <Text>----------------------</Text>
                            </View>
                         );
                      }}
@@ -83,6 +83,15 @@ const styles = StyleSheet.create({
       fontSize: 24,
       textAlign: 'center',
       color: 'black',
+   },
+   taskContainer: {
+      flex: 1,
+      alignItems: 'center',
+      width: '100%',
+      padding: 10,
+      margin: 5,
+      borderBottomWidth: 1,
+      borderBottomColor: '#bbb',
    }
 })
 
