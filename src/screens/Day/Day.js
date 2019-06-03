@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
+import Txt from '../../components/UI/MainText';
 
 export class DayScreen extends Component {
    
@@ -31,8 +32,9 @@ export class DayScreen extends Component {
 
    connfirmDeleteTask = (id) => {
       Alert.alert('', 'Delete task ?', [
-         {text: 'yes', onPress: () => this.props.onDeleteTask(id)},
-         {text: 'no'}
+         {text: 'no'},
+         {text: 'yes', onPress: () => this.props.onDeleteTask(id)}
+        
       ]);
    }
 
@@ -41,15 +43,15 @@ export class DayScreen extends Component {
       const { tasks, date } = this.props;
 
       return (
-         <View style={{ flex: 1 }}>
+         <View style={{ flex: 1, marginBottom: 20 }}>
             <View style={styles.headerContainer}>
                <View>
                   <Image style={styles.icon}/>
                </View>
-               <Text style={styles.mainTitle}>
+               <Txt style={styles.mainTitle}>
                   {getSerbianDate(date)}
-               </Text>
-               <TouchableOpacity onPress={this.onAddTaskHandler}>
+               </Txt>
+               <TouchableOpacity  style={{padding: 14}} onPress={this.onAddTaskHandler}>
                   <Image source={require('../../assets/new.png')} 
                      style={styles.icon} 
                   />
@@ -66,24 +68,33 @@ export class DayScreen extends Component {
                         return (                           
                            <View style={styles.taskContainer}>
                               <View style={{flex: 3}}>
-                                 <Text>{id}</Text>
-                                 <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
-                                 {task.item.important && <Image source={require('../../assets/star.png')} 
-                                       style={styles.icon} 
-                                    />}
-                                 <Text>Title: {task.item.title}</Text>
-                                 <Text>Time: {task.item.time}</Text>
-                                 <Text>Desc: {task.item.description}</Text>
+                                 <Txt>{id}</Txt>
+                                 <Txt>
+                                    {task.item.important ? 'Important' : 'Not important'}
+                                 </Txt>
+                                 {task.item.important && 
+                                    <View  style={{padding: 10}}>
+                                       <Image  style={styles.icon} 
+                                          source={require('../../assets/star.png')} 
+                                       />
+                                    </View>
+                                 }
+                                 <Txt>Title: {task.item.title}</Txt>
+                                 <Txt style={{color: 'red'}}>Time: {task.item.time} h</Txt>
+                                 <Txt>Desc: {task.item.description}</Txt>
                               </View>
+
                               <View style={styles.bottomIconContainer}> 
-                                 <TouchableOpacity onPress={() => { this.connfirmDeleteTask(id) }}>
-                                    <Image source={require('../../assets/edit.png')} 
-                                       style={styles.icon} 
+                                 <TouchableOpacity style={{padding: 10}}
+                                    onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    <Image  style={[styles.icon, styles.editIcon]}
+                                       source={require('../../assets/edit.png')} 
                                     />
                                  </TouchableOpacity>
-                                 <TouchableOpacity onPress={() => { this.connfirmDeleteTask(id) }}>
-                                    <Image source={require('../../assets/delete.png')} 
-                                       style={styles.icon} 
+                                 <TouchableOpacity  style={{padding: 10}}
+                                    onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    <Image style={styles.icon} 
+                                       source={require('../../assets/delete.png')}                                        
                                     />
                                  </TouchableOpacity>                                    
                               </View>                      
@@ -124,10 +135,12 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-evenly'
    },
-   icon: {
-      padding: 12,      
+   icon: {     
       height: 20, 
       width: 20
+   },
+   editIcon: {
+      transform: [{ rotate: '90deg' }]
    }
 })
 

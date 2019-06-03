@@ -18,7 +18,7 @@ export class TaskFormScreen extends Component {
          title: 'Stan task',
          date: new Date(2019, 5, 3),
          time: '9.35',
-         important: false,
+         important: true,
          description: 'lorem ... '
       };
       this.props.onAddTask(task);
