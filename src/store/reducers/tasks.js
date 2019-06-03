@@ -1,4 +1,4 @@
-import { DELETE_TASK_REDUCER, GET_TASKS_REDUCER, ADD_TASK_REDUCER } from '../actions/actionTypes';
+import { DELETE_TASK_REDUCER, GET_TASKS_REDUCER, ADD_TASK_REDUCER, EDIT_TASK_REDUCER } from '../actions/actionTypes';
 
 const initialState = {
    tasks: []
@@ -27,6 +27,15 @@ const reducer = (state = initialState, action) => {
             ...state,
             tasks: newTasks
          }
+
+
+      case EDIT_TASK_REDUCER:
+         // add logic here
+         return{
+            ...state
+         }
+
+
 
       case DELETE_TASK_REDUCER:
          return {

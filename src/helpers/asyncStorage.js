@@ -25,7 +25,7 @@ export const addTask = async (task) => {
 
 export const editTask = async (task) => {
    try {
-      const value = await AsyncStorage.setItem(task.id, task);
+      const value = await AsyncStorage.setItem('@' + (task.id).toString(), JSON.stringify(task));
       console.log('Task edited.');
    } catch (e) {
       console.log('error with editing task');

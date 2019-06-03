@@ -4,6 +4,8 @@ import {
    GET_TASKS_REDUCER,
    ADD_TASK_SAGA,
    ADD_TASK_REDUCER,
+   EDIT_TASK_SAGA,
+   EDIT_TASK_REDUCER,
    DELETE_TASK_SAGA,
    DELETE_TASK_REDUCER,
    DO_SOMETHING,
@@ -35,6 +37,18 @@ function* addTask(action) {
    }
 }
 
+
+function* editTask(action) {
+   try {
+      yield call(api.editTask, action.payload);
+
+      yield put({ type: EDIT_TASK_REDUCER, task: action.payload });
+   } catch (error) {
+      console.log('error saga editTask');
+   }
+}
+
+
 function* deleteTask(action) {
    try {
       yield call(api.deleteTask, action.payload);
@@ -56,4 +70,5 @@ export default function* rootSaga() {
    yield takeLatest(ADD_TASK_SAGA, addTask);
    yield takeLatest(DO_SOMETHING, doSomething);
    yield takeLatest(DELETE_TASK_SAGA, deleteTask);
+   yield takeLatest(EDIT_TASK_SAGA, editTask);
 }

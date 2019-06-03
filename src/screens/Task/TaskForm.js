@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { ADD_TASK_SAGA } from '../../store/actions/actionTypes';
+import { ADD_TASK_SAGA, EDIT_TASK_SAGA } from '../../store/actions/actionTypes';
 
 import Btn from '../../components/UI/ButtonWithBackground'
 
-export class TaskModalScreen extends Component {
+export class TaskFormScreen extends Component {
+
+   constructor(props) {
+      super(props);
+   }
 
    submit = () => {
       let task = {
@@ -27,7 +31,7 @@ export class TaskModalScreen extends Component {
    render() {
       return (
          <View style={{flex: 1, backgroundColor: 'white'}}>
-            <Text> TaskModalScreen </Text>
+            <Text> TaskFormScreen </Text>
             <Btn onPress={this.submit}>Submit</Btn>
          </View>
       )
@@ -44,7 +48,11 @@ const mapDispatchToProps = dispatch => {
          type: ADD_TASK_SAGA,
          payload: task
       }),
+      onEditTask: (task) => dispatch({
+         type: EDIT_TASK_SAGA,
+         payload: task
+      })
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskModalScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskFormScreen)

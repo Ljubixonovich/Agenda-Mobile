@@ -3,11 +3,9 @@ import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
-import Btn from '../../components/UI/ButtonWithBackground';
 
 export class DayScreen extends Component {
-
-
+   
    constructor(props) {
       super(props);
    }
@@ -15,10 +13,20 @@ export class DayScreen extends Component {
 
    onAddTaskHandler = () => {
       this.props.navigator.showModal({
-         screen: 'agenda.TaskModalScreen',
+         screen: 'agenda.TaskFormScreen',
          title: 'Add Task',
-         animationType: 'fade'
+         animationType: 'fade',
+         passProps: {editMode: false},
          });
+   }
+
+   onEditTaskHandler = (task) => {
+      this.props.navigator.showModal({
+         screen: 'agenda.TaskFormScreen',
+         title: 'Edit Task',
+         animationType: 'fade',
+         passProps: {editMode: true, task: task},
+      });
    }
 
    connfirmDeleteTask = (id) => {
@@ -47,7 +55,6 @@ export class DayScreen extends Component {
                   />
                </TouchableOpacity>
             </View>
-
             <View style={{ flex: 5 }}>
                {tasks.length > 0 &&
                   <FlatList
