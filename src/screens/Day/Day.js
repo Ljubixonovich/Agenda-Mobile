@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
@@ -35,18 +35,21 @@ export class DayScreen extends Component {
       return (
          <View style={{ flex: 1 }}>
             <View style={styles.headerContainer}>
-
-               <Text style={{ width: 50 }}></Text>
+               <View>
+                  <Image style={styles.icon}/>
+               </View>
                <Text style={styles.mainTitle}>
                   {getSerbianDate(date)}
                </Text>
-               <Btn width={50} onPress={this.onAddTaskHandler}>
-                  +
-               </Btn>
-
+               <TouchableOpacity onPress={this.onAddTaskHandler}>
+                  <Image source={require('../../assets/new.png')} 
+                     style={styles.icon} 
+                  />
+               </TouchableOpacity>
             </View>
+
             <View style={{ flex: 5 }}>
-               {tasks.length > 0 ?
+               {tasks.length > 0 &&
                   <FlatList
                      data={tasks}
                      keyExtractor={(task) => task.id}
@@ -55,17 +58,32 @@ export class DayScreen extends Component {
                         let id = task.item.id;
                         return (                           
                            <View style={styles.taskContainer}>
-                              <Text>{id}</Text>
-                              <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
-                              <Text>Title: {task.item.title}</Text>
-                              <Text>Time: {task.item.time}</Text>
-                              <Text>Desc: {task.item.description}</Text>
-                              <Btn width={50} onPress={() => { this.connfirmDeleteTask(id) }}>X</Btn>
+                              <View style={{flex: 3}}>
+                                 <Text>{id}</Text>
+                                 <Text>{task.item.important ? 'Important' : 'Not important'}</Text>
+                                 {task.item.important && <Image source={require('../../assets/star.png')} 
+                                       style={styles.icon} 
+                                    />}
+                                 <Text>Title: {task.item.title}</Text>
+                                 <Text>Time: {task.item.time}</Text>
+                                 <Text>Desc: {task.item.description}</Text>
+                              </View>
+                              <View style={styles.bottomIconContainer}> 
+                                 <TouchableOpacity onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    <Image source={require('../../assets/edit.png')} 
+                                       style={styles.icon} 
+                                    />
+                                 </TouchableOpacity>
+                                 <TouchableOpacity onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    <Image source={require('../../assets/delete.png')} 
+                                       style={styles.icon} 
+                                    />
+                                 </TouchableOpacity>                                    
+                              </View>                      
                            </View>
                         );
                      }}
                   />
-                  : null
                }
             </View>
          </View>
@@ -92,6 +110,17 @@ const styles = StyleSheet.create({
       margin: 5,
       borderBottomWidth: 1,
       borderBottomColor: '#bbb',
+   },
+   bottomIconContainer: {
+      width: '100%',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-evenly'
+   },
+   icon: {
+      padding: 12,      
+      height: 20, 
+      width: 20
    }
 })
 

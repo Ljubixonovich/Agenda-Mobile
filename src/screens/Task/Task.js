@@ -12,9 +12,9 @@ export class TaskModalScreen extends Component {
       let task = {
          id: '',
          title: 'Stan task',
-         date: new Date(2019, 5, 2),
+         date: new Date(2019, 5, 3),
          time: '9.35',
-         important: true,
+         important: false,
          description: 'lorem ... '
       };
       this.props.onAddTask(task);
