@@ -22,6 +22,8 @@ export class DayScreen extends Component {
    }
 
    onEditTaskHandler = (task) => {
+      console.log(task);
+      
       this.props.navigator.showModal({
          screen: 'agenda.TaskFormScreen',
          title: 'Edit Task',
@@ -63,36 +65,36 @@ export class DayScreen extends Component {
                      data={tasks}
                      keyExtractor={(task) => task.id}
                      showsVerticalScrollIndicator={false}
-                     renderItem={(task) => {
-                        let id = task.item.id;
+                     renderItem={(t) => {
+                        let task = t.item;
                         return (                           
                            <View style={styles.taskContainer}>
                               <View style={{flex: 3}}>
-                                 <Txt>{id}</Txt>
+                                 <Txt>{task.id}</Txt>
                                  <Txt>
-                                    {task.item.important ? 'Important' : 'Not important'}
+                                    {task.important ? 'Important' : 'Not important'}
                                  </Txt>
-                                 {task.item.important && 
+                                 {task.important && 
                                     <View  style={{padding: 10}}>
                                        <Image  style={styles.icon} 
                                           source={require('../../assets/star.png')} 
                                        />
                                     </View>
                                  }
-                                 <Txt>Title: {task.item.title}</Txt>
-                                 <Txt style={{color: 'red'}}>Time: {task.item.time} h</Txt>
-                                 <Txt>Desc: {task.item.description}</Txt>
+                                 <Txt>Title: {task.title}</Txt>
+                                 <Txt style={{color: 'red'}}>Time: {task.time} h</Txt>
+                                 <Txt>Desc: {task.description}</Txt>
                               </View>
 
                               <View style={styles.bottomIconContainer}> 
                                  <TouchableOpacity style={{padding: 10}}
-                                    onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    onPress={() => this.onEditTaskHandler(task)}>
                                     <Image  style={[styles.icon, styles.editIcon]}
                                        source={require('../../assets/edit.png')} 
                                     />
                                  </TouchableOpacity>
                                  <TouchableOpacity  style={{padding: 10}}
-                                    onPress={() => { this.connfirmDeleteTask(id) }}>
+                                    onPress={() => { this.connfirmDeleteTask(task.id) }}>
                                     <Image style={styles.icon} 
                                        source={require('../../assets/delete.png')}                                        
                                     />
