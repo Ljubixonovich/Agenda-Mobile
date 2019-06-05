@@ -41,8 +41,8 @@ function* addTask(action) {
 function* editTask(action) {
    try {
       yield call(api.editTask, action.payload);
-
-      yield put({ type: EDIT_TASK_REDUCER, task: action.payload });
+      
+      yield put({ type: EDIT_TASK_REDUCER, task: action.payload, id: action.payload.id });
    } catch (error) {
       console.log('error saga editTask');
    }

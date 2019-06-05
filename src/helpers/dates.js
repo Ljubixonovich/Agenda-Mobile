@@ -13,10 +13,10 @@ export const getFormatedDate = (date) => {
 }
 
 
-export const getSerbianDate = (date) => { 
+export const getSerbianDate = (date) => {
    // Ponedeljak 15. 12.  
    let response = moment(date).locale('sr').format('dddd D. MMM');
-   return response;   
+   return response;
 }
 
 export const compareDates = (date1, date2) => {
@@ -33,6 +33,12 @@ export const getToday = () => {
    let today = new Date();
    today.setHours(0, 0, 0, 0);
    return today;
+}
+
+export const getValidDate = (date) => {
+   let d = new Date(Date.parse(date));
+   d.setHours(0, 0, 0, 0);
+   return d;
 }
 
 

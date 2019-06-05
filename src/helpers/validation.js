@@ -11,8 +11,8 @@ const validate = (val, rules) => {
        case 'notEmpty':
          isValid = isValid && notEmptyValidator(val);
          break;
-      case 'isTime':
-         isValid = isValid && isCorrectTime(val);
+      case 'isDate':
+         isValid = isValid && isDate(val);
        default:
          isValid = true;
          break;
@@ -34,7 +34,7 @@ const validate = (val, rules) => {
    return val.trim() !== '';
  }
 
- const isCorrectTime = val => {
+ const isDate = val => {
     return true;
  }
  

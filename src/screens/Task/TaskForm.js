@@ -7,6 +7,8 @@ import validate from '../../helpers/validation';
 import Btn from '../../components/UI/ButtonWithBackground';
 import Txt from '../../components/UI/MainText';
 import Imp from '../../components/UI/DefaultInput';
+import DatePicker from '../../components/DatePicker/DatePicker';
+
 
 export class TaskFormScreen extends Component {
 
@@ -20,17 +22,16 @@ export class TaskFormScreen extends Component {
 
          title: {
             value: this.props.editMode ? this.props.task.title : '',
-            valid: false,
+            valid: this.props.editMode || false,
             validationRules: {
                notEmpty: true
             },
             touched: false
          },
          date: {
-            value: this.props.editMode ? this.props.task.date : '',
+            value: this.props.date,
             valid: false,
             validationRules: {
-               notEmpty: true
             },
             touched: false
          },
@@ -38,8 +39,6 @@ export class TaskFormScreen extends Component {
             value: this.props.editMode ? this.props.task.time : '',
             valid: false,
             validationRules: {
-               // to do ako je time nedefinisan
-               notEmpty: true
             },
             touched: false
          },
@@ -79,31 +78,29 @@ export class TaskFormScreen extends Component {
 
 
    submit = () => {
+     // let d = this.state.controls.date.value;
+
       let task = {
-         id: '',
-         title: 'Stan task',
-         date: new Date(2019, 5, 4),
-         time: '9.35',
-         important: true,
-         description: 'lorem ... '
+         id: this.props.editMode ? this.props.task.id : '',
+         title: this.state.controls.title.value,
+         date: this.state.controls.date.value,
+         time: this.state.controls.time.value || '9.00',
+         important: this.state.controls.important.value,
+         description: this.state.controls.description.value
       };
-      this.props.onAddTask(task);
 
-
-
-
-
+      this.props.editMode ? this.props.onEditTask(task) : this.props.onAddTask(task);
       this.props.navigator.dismissModal({
          animationType: 'slide-down'
-       });
+      });
    }
 
    render() {
       return (
-         <View style={{flex: 1, backgroundColor: 'white', width: '100%', height: '100%'}}>
+         <View style={{ flex: 1, backgroundColor: 'white', width: '100%', height: '100%' }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            
-               <View style={{flex: 1, padding: 15}}>
+
+               <View style={{ flex: 1, padding: 15 }}>
                   <View style={styles.inputContainer}>
                      <Txt>Title: </Txt>
                      <Imp
@@ -114,15 +111,17 @@ export class TaskFormScreen extends Component {
                         onChangeText={(val) => this.updateInputState('title', val)}
                      ></Imp>
 
-                     <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 14}}>
+                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 14 }}>
                         <Txt>Important: </Txt>
                         <Switch
-                           onValueChange = {(val) => this.updateInputState('important', val)}
-                           value = {this.state.controls.important.value}/>
+                           onValueChange={(val) => this.updateInputState('important', val)}
+                           value={this.state.controls.important.value} />
                      </View>
 
                      <Txt>Date: </Txt>
-
+                     <DatePicker style={{ marginBottom: 14 }}
+                        date={this.state.controls.date.value}
+                        onDateChange={(val) => this.updateInputState('date', val)} />
 
                      <Txt>Time: </Txt>
                      <Imp
@@ -146,9 +145,11 @@ export class TaskFormScreen extends Component {
                      ></Imp>
                   </View>
 
-               
-                  <View style={{flex: 1}}>
-                     <Btn onPress={this.submit}>Submit</Btn>
+
+                  <View style={{ flex: 1 }}>
+                     <Btn color='blue' 
+                        disabled={ !this.state.controls.title.valid } 
+                        onPress={this.submit}>Submit</Btn>
                   </View>
 
                </View>
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-   
+
 })
 
 const mapDispatchToProps = dispatch => {

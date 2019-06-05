@@ -30,8 +30,11 @@ const reducer = (state = initialState, action) => {
 
 
       case EDIT_TASK_REDUCER:
-         // add logic here
-         return{
+         // const newState = { ...state };
+         // newState.tasks = [
+
+         // ]
+         return {
             ...state
          }
 
