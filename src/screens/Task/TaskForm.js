@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Switch, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Switch, StyleSheet, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ADD_TASK_SAGA, EDIT_TASK_SAGA } from '../../store/actions/actionTypes';
@@ -78,8 +78,6 @@ export class TaskFormScreen extends Component {
 
 
    submit = () => {
-     // let d = this.state.controls.date.value;
-
       let task = {
          id: this.props.editMode ? this.props.task.id : '',
          title: this.state.controls.title.value,
@@ -97,78 +95,93 @@ export class TaskFormScreen extends Component {
 
    render() {
       return (
-         <View style={{ flex: 1, backgroundColor: 'white', width: '100%', height: '100%' }}>
+         <KeyboardAvoidingView
+            style={styles.mainContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-
-               <View style={{ flex: 1, padding: 15 }}>
-                  <View style={styles.inputContainer}>
-                     <Txt>Title: </Txt>
-                     <Imp
-                        placeholder='Title' style={styles.input}
-                        value={this.state.controls.title.value}
-                        valid={this.state.controls.title.valid}
-                        touched={this.state.controls.title.touched}
-                        onChangeText={(val) => this.updateInputState('title', val)}
-                     ></Imp>
-
-                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 14 }}>
-                        <Txt>Important: </Txt>
-                        <Switch
-                           onValueChange={(val) => this.updateInputState('important', val)}
-                           value={this.state.controls.important.value} />
-                     </View>
-
-                     <Txt>Date: </Txt>
-                     <DatePicker style={{ marginBottom: 14 }}
-                        date={this.state.controls.date.value}
-                        onDateChange={(val) => this.updateInputState('date', val)} />
-
-                     <Txt>Time: </Txt>
-                     <Imp
-                        placeholder='Time' style={styles.input}
-                        value={this.state.controls.time.value}
-                        valid={this.state.controls.time.valid}
-                        touched={this.state.controls.time.touched}
-                        keyboardType='numeric'
-                        onChangeText={(val) => this.updateInputState('time', val)}
-                     ></Imp>
-
-                     <Txt>Description: </Txt>
-                     <Imp
-                        placeholder='Title' style={styles.input}
-                        value={this.state.controls.description.value}
-                        valid={this.state.controls.description.valid}
-                        touched={this.state.controls.description.touched}
-                        multiline={true}
-                        numberOfLines={4}
-                        onChangeText={(val) => this.updateInputState('description', val)}
-                     ></Imp>
+               <View style={styles.inputContainer}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 14 }}>
+                     <Txt>Important: </Txt>
+                     <Switch
+                        onValueChange={(val) => this.updateInputState('important', val)}
+                        value={this.state.controls.important.value}
+                     />
                   </View>
 
 
-                  <View style={{ flex: 1 }}>
-                     <Btn color='blue' 
-                        disabled={ !this.state.controls.title.valid } 
-                        onPress={this.submit}>Submit</Btn>
+                  <Txt>Title: </Txt>
+                  <Imp
+                     placeholder='Title' style={styles.input}
+                     value={this.state.controls.title.value}
+                     valid={this.state.controls.title.valid}
+                     touched={this.state.controls.title.touched}
+                     onChangeText={(val) => this.updateInputState('title', val)}
+                  ></Imp>
+
+                  <Txt>Time: </Txt>
+                  <Imp
+                     placeholder='Time' style={styles.input}
+                     value={this.state.controls.time.value}
+                     valid={this.state.controls.time.valid}
+                     touched={this.state.controls.time.touched}
+                     keyboardType='numeric'
+                     onChangeText={(val) => this.updateInputState('time', val)}
+                  ></Imp>
+
+                  <Txt>Description: </Txt>
+                  <Imp
+                     placeholder='Description' style={styles.input}
+                     value={this.state.controls.description.value}
+                     valid={this.state.controls.description.valid}
+                     touched={this.state.controls.description.touched}
+                     multiline={true}
+                     numberOfLines={4}
+                     onChangeText={(val) => this.updateInputState('description', val)}
+                  ></Imp>
+
+                  <View style={styles.bottomContainer}>
+                     <Txt>Date: </Txt>
+                     <DatePicker
+                        date={this.state.controls.date.value}
+                        onDateChange={(val) => this.updateInputState('date', val)}
+                     />
+
+                     <View >
+                        <Btn color='#092ee8' width={90} textColor='white'
+                           disabled={!this.state.controls.title.valid}
+                           onPress={this.submit}
+                        >Submit</Btn>
+                     </View>
                   </View>
 
                </View>
             </TouchableWithoutFeedback>
-         </View>
+         </KeyboardAvoidingView>
       )
    }
 }
 
 const styles = StyleSheet.create({
+   mainContainer: {
+      flex: 1,
+      backgroundColor: 'white',
+      width: '100%',
+      height: '100%',
+      padding: 15,
+   },
    inputContainer: {
-      flex: 5,
+      flex: 1,
       justifyContent: 'center',
       paddingRight: 20,
       paddingLeft: 20
    },
+   bottomContainer: {
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      justifyContent: 'space-evenly',
+   },   
    input: {
       backgroundColor: '#eee',
-      marginBottom: 14
+      marginBottom: 16
    },
    errorText: {
       color: 'white',

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
+import { View, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getSerbianDate } from '../../helpers/dates';
 import Txt from '../../components/UI/MainText';
+import ListItemTask from '../../components/ListItemTask/ListItemTask';
 
 export class DayScreen extends Component {
    
@@ -67,40 +68,12 @@ export class DayScreen extends Component {
                      showsVerticalScrollIndicator={false}
                      renderItem={(t) => {
                         let task = t.item;
-                        return (                           
-                           <View style={styles.taskContainer}>
-                              <View style={{flex: 3}}>
-                                 <Txt>{task.id}</Txt>
-                                 <Txt>
-                                    {task.important ? 'Important' : 'Not important'}
-                                 </Txt>
-                                 {task.important && 
-                                    <View  style={{padding: 10}}>
-                                       <Image  style={styles.icon} 
-                                          source={require('../../assets/star.png')} 
-                                       />
-                                    </View>
-                                 }
-                                 <Txt>Title: {task.title}</Txt>
-                                 <Txt style={{color: 'red'}}>Time: {task.time} h</Txt>
-                                 <Txt>Desc: {task.description}</Txt>
-                              </View>
-
-                              <View style={styles.bottomIconContainer}> 
-                                 <TouchableOpacity style={{padding: 10}}
-                                    onPress={() => this.onEditTaskHandler(task)}>
-                                    <Image  style={[styles.icon, styles.editIcon]}
-                                       source={require('../../assets/edit.png')} 
-                                    />
-                                 </TouchableOpacity>
-                                 <TouchableOpacity  style={{padding: 10}}
-                                    onPress={() => { this.connfirmDeleteTask(task.id) }}>
-                                    <Image style={styles.icon} 
-                                       source={require('../../assets/delete.png')}                                        
-                                    />
-                                 </TouchableOpacity>                                    
-                              </View>                      
-                           </View>
+                        return (  
+                           <ListItemTask 
+                              task={task}
+                              onEditTaskHandler={this.onEditTaskHandler}
+                              connfirmDeleteTask={this.connfirmDeleteTask}
+                           />
                         );
                      }}
                   />
@@ -119,31 +92,14 @@ const styles = StyleSheet.create({
    },
    mainTitle: {
       fontSize: 24,
+      fontWeight: 'bold',
       textAlign: 'center',
       color: 'black',
-   },
-   taskContainer: {
-      flex: 1,
-      alignItems: 'center',
-      width: '100%',
-      padding: 10,
-      margin: 5,
-      borderBottomWidth: 1,
-      borderBottomColor: '#bbb',
-   },
-   bottomIconContainer: {
-      width: '100%',
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-evenly'
    },
    icon: {     
       height: 20, 
       width: 20
    },
-   editIcon: {
-      transform: [{ rotate: '90deg' }]
-   }
 })
 
 

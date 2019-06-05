@@ -30,12 +30,13 @@ const reducer = (state = initialState, action) => {
 
 
       case EDIT_TASK_REDUCER:
-         // const newState = { ...state };
-         // newState.tasks = [
-
-         // ]
+         const newTasks2 = [...state.tasks];
+         let index = newTasks2.findIndex(t => t.id === action.id);
+         newTasks2[index] = action.task;
+         
          return {
-            ...state
+            ...state,
+            tasks: newTasks2
          }
 
 
