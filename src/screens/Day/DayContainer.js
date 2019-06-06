@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => {
       getTasks: () => dispatch({ type: GET_TASKS_SAGA }),
       onDeleteTask: (id) => dispatch({
          type: DELETE_TASK_SAGA,
-         payload: id
+         id: id
       }),
       doSomething: () => dispatch({ type: DO_SOMETHING })
    }

@@ -29,9 +29,9 @@ function* getTasks(action) {
 
 function* addTask(action) {
    try {
-      yield call(api.addTask, action.payload);
+      yield call(api.addTask, action.task);
 
-      yield put({ type: ADD_TASK_REDUCER, task: action.payload });
+      yield put({ type: ADD_TASK_REDUCER, task: action.task });
    } catch (error) {
       console.log('error saga addTask');
    }
@@ -40,9 +40,9 @@ function* addTask(action) {
 
 function* editTask(action) {
    try {
-      yield call(api.editTask, action.payload);
+      yield call(api.editTask, action.task);
       
-      yield put({ type: EDIT_TASK_REDUCER, task: action.payload, id: action.payload.id });
+      yield put({ type: EDIT_TASK_REDUCER, task: action.task, id: action.task.id });
    } catch (error) {
       console.log('error saga editTask');
    }
@@ -51,9 +51,9 @@ function* editTask(action) {
 
 function* deleteTask(action) {
    try {
-      yield call(api.deleteTask, action.payload);
+      yield call(api.deleteTask, action.id);
 
-      yield put({ type: DELETE_TASK_REDUCER, id: action.payload });
+      yield put({ type: DELETE_TASK_REDUCER, id: action.id });
    } catch (error) {
       console.log('error saga deleteTask');
    }

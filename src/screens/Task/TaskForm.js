@@ -149,7 +149,7 @@ export class TaskFormScreen extends Component {
                         <Btn color='#092ee8' width={90} textColor='white'
                            disabled={!this.state.controls.title.valid}
                            onPress={this.submit}
-                        >Submit</Btn>
+                        >Save</Btn>
                      </View>
                   </View>
 
@@ -197,11 +197,11 @@ const mapDispatchToProps = dispatch => {
    return {
       onAddTask: (task) => dispatch({
          type: ADD_TASK_SAGA,
-         payload: task
+         task: task
       }),
       onEditTask: (task) => dispatch({
          type: EDIT_TASK_SAGA,
-         payload: task
+         task: task
       })
    }
 }
