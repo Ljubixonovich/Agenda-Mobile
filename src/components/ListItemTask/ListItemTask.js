@@ -4,7 +4,7 @@ import { TouchableOpacity, View, StyleSheet, Image } from 'react-native';
 import Txt from '../../components/UI/MainText';
 
 const ListItemTask = props => {
-   const { task } = props;
+   const { task, active } = props;
 
    return (
       <View style={styles.mainContainer}>
@@ -18,7 +18,8 @@ const ListItemTask = props => {
                   <Image style={styles.icon}
                      source={require('../../assets/star.png')}
                   />
-               </View> : 
+               </View> 
+               : 
                <View style={{ padding: 10 }}>
                   <Image style={styles.icon} />
                </View>
@@ -26,24 +27,28 @@ const ListItemTask = props => {
 
             {/* <Txt>ID: {task.id}</Txt> */}            
          </View>
-         
-         { task.description !== '' && 
-               <Txt>{task.description}</Txt>
-         }
 
-         <View style={styles.bottomIconContainer}>
-            <TouchableOpacity style={{ padding: 10 }}
-               onPress={() => props.onEditTaskHandler(task)}>
-               <Image style={[styles.icon, styles.editIcon]}
-                  source={require('../../assets/edit.png')}
-               />
-            </TouchableOpacity>
-            <TouchableOpacity style={{ padding: 10 }}
-               onPress={() => { props.connfirmDeleteTask(task.id) }}>
-               <Image style={styles.icon}
-                  source={require('../../assets/delete.png')}
-               />
-            </TouchableOpacity>
+         <View style={styles.bottomContainer}>
+            <View style={{flex: 4}}>
+               <Txt>{task.description}</Txt>
+            </View>
+            
+
+            <View style={styles.iconContainer}>
+               <TouchableOpacity style={{ padding: 10 }}
+                  onPress={() => props.onEditTaskHandler(task)}>
+                  <Image style={[styles.icon, styles.editIcon]}
+                     source={require('../../assets/edit.png')}
+                  />
+               </TouchableOpacity>
+               <TouchableOpacity style={{ padding: 10 }}
+                  onPress={() => { props.connfirmDeleteTask(task.id) }}>
+                  <Image style={styles.icon}
+                     source={require('../../assets/delete.png')}
+                  />
+               </TouchableOpacity>
+            </View>
+            
          </View>
       </View>
    );
@@ -54,7 +59,8 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'flex-start',      
       width: '100%',
-      padding: 10,
+      paddingLeft: 10,
+      paddingRight: 10,
       margin: 5,
       borderBottomWidth: 1,
       borderBottomColor: '#bbb',
@@ -65,8 +71,13 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
    },
-   bottomIconContainer: {
+   bottomContainer: {
       width: '100%',
+      flexDirection: 'row',     
+      justifyContent: 'space-between',
+      alignItems: 'center',
+   },
+   iconContainer: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-evenly'

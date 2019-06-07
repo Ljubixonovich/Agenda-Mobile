@@ -87,11 +87,15 @@ export class TaskFormScreen extends Component {
          description: this.state.controls.description.value
       };
 
-      this.props.editMode ? this.props.onEditTask(task) : this.props.onAddTask(task);
+      this.props.editMode ? 
+         this.props.onEditTask(task) : 
+         this.props.onAddTask(task);
+
       this.props.navigator.dismissModal({
          animationType: 'slide-down'
       });
    }
+   
 
    render() {
       return (
@@ -99,12 +103,18 @@ export class TaskFormScreen extends Component {
             style={styles.mainContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                <View style={styles.inputContainer}>
-                  <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 14 }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
                      <Txt>Important: </Txt>
                      <Switch
                         onValueChange={(val) => this.updateInputState('important', val)}
                         value={this.state.controls.important.value}
                      />
+                  </View>
+                  <DatePicker
+                     date={this.state.controls.date.value}
+                     onDateChange={(val) => this.updateInputState('date', val)}
+                  />
                   </View>
 
 
@@ -139,11 +149,11 @@ export class TaskFormScreen extends Component {
                   ></Imp>
 
                   <View style={styles.bottomContainer}>
-                     <Txt>Date: </Txt>
+                     {/* <Txt>Date: </Txt>
                      <DatePicker
                         date={this.state.controls.date.value}
                         onDateChange={(val) => this.updateInputState('date', val)}
-                     />
+                     /> */}
 
                      <View >
                         <Btn color='#092ee8' width={90} textColor='white'
@@ -162,22 +172,24 @@ export class TaskFormScreen extends Component {
 
 const styles = StyleSheet.create({
    mainContainer: {
-      flex: 1,
+      flex: 1,      
       backgroundColor: 'white',
       width: '100%',
       height: '100%',
-      padding: 15,
+      padding: 12,
+     paddingBottom: 6
    },
    inputContainer: {
       flex: 1,
-      justifyContent: 'center',
+     // justifyContent: 'center',
+     justifyContent: 'flex-end',
       paddingRight: 20,
       paddingLeft: 20
    },
    bottomContainer: {
       flexDirection: 'row', 
       alignItems: 'center', 
-      justifyContent: 'space-evenly',
+      justifyContent: 'center',
    },   
    input: {
       backgroundColor: '#eee',

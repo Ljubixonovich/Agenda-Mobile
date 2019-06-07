@@ -73,6 +73,7 @@ export class DayScreen extends Component {
                               task={task}
                               onEditTaskHandler={this.onEditTaskHandler}
                               connfirmDeleteTask={this.connfirmDeleteTask}
+                             // active={this.state.active}
                            />
                         );
                      }}
@@ -89,6 +90,9 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      marginBottom: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#bbb', 
    },
    mainTitle: {
       fontSize: 24,
