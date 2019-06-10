@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {View} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
 import { getValidDate } from '../../helpers/dates';
-import Txt from '../UI/MainText';
 
 export default class LjDatePicker extends Component {
    constructor(props) {

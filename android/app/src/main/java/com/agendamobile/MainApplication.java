@@ -9,6 +9,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +55,8 @@ public class MainApplication extends NavigationApplication {
 		// Add additional packages you require here
 		// No need to add RnnPackage and MainReactPackage
 		return Arrays.<ReactPackage>asList(
-         new AsyncStoragePackage()
+         new AsyncStoragePackage(),
+         new VectorIconsPackage()
 			// eg. new VectorIconsPackage()
 		);
 	}

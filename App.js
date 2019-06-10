@@ -9,6 +9,7 @@ import MonthScreen from './src/screens/Month/Month';
 import TaskFormScreen from './src/screens/Task/TaskForm';
 import store from './src/store/configureStore';
 import startSingleScreenApp from './src/startSingleScreenApp';
+import PopupMenu from './src/components/PopupMenu/PopupMenu';
 
 
 Navigation.registerComponent('agenda.WelcomeScreen', () => WelcomeScreen, store, Provider);
@@ -18,9 +19,9 @@ Navigation.registerComponent('agenda.DayScreen', () => DayScreen, store, Provide
 Navigation.registerComponent('agenda.WeekScreen', () => WeekScreen, store, Provider);
 Navigation.registerComponent('agenda.MonthScreen', () => MonthScreen, store, Provider);
 Navigation.registerComponent('agenda.TaskFormScreen', () => TaskFormScreen, store, Provider);
-
+Navigation.registerComponent('agenda.PopupMenu', () => PopupMenu, store, Provider);
 
 // Start App
 export default () => {
-   startSingleScreenApp();
+   startSingleScreenApp('agenda.DayContainer');
 }
