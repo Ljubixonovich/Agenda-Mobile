@@ -4,7 +4,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { GET_TASKS_SAGA, DO_SOMETHING, DELETE_TASK_SAGA } from '../../store/actions/actionTypes';
+import { GET_TASKS_SAGA, DO_SOMETHING, DELETE_TASK_SAGA, RESET_DATE, UI_STOP_LOADING } from '../../store/actions/actionTypes';
 import DayScreen from './Day';
 import DatePicker from '../../components/DatePicker/DatePicker';
 import startSingleScreenApp from '../../startSingleScreenApp';
@@ -43,16 +43,34 @@ export class DayContainer extends Component {
      });
    }
 
+   componentWillReceiveProps(nextProps) {
+      if (nextProps.choosedDate !== null) {
+         this.goToPage(daysBeforeToday() - this.date_diff_indays(nextProps.choosedDate));
+
+         this.props.resetDate();
+      }
+   }
+
+   date_diff_indays = (date1) => {
+      dt1 = new Date(date1);
+      dt2 = getToday();
+
+      return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+   }
+
    menuHandler = (a, b) => {
       if (b === 0) { // Today
          this.goToPage(daysBeforeToday());
-        // alert('Today');
       } else if (b === 1) { // Go to Date...
-         alert('Go to Date...');
+         this.props.navigator.showModal({
+            screen: 'agenda.ChooseDateScreen',
+            title: 'Choose Date',
+            animationType: 'fade',
+            passProps: {date: this.state.dateToday},
+         });
       }  
       else if (b === 2) { // Weekly View
          startSingleScreenApp('agenda.WeekScreen');
-         // alert('Weekly View');
       }    
    };
 
@@ -87,7 +105,7 @@ export class DayContainer extends Component {
             tabBarPosition='overlayBottom'
             tabBarTextStyle={{fontSize: 30, color: 'transparent'}}
             initialPage={daysBeforeToday()}
-            prerenderingSiblingsNumber={5}
+            prerenderingSiblingsNumber={Infinity}
             tabBarUnderlineStyle={{ backgroundColor:'#ff0000', height:0, }}
             renderTabBar={() => 
                <ScrollableTabBar style={{backgroundColor: 'transparent' }} />}
@@ -113,7 +131,8 @@ export class DayContainer extends Component {
 const mapStateToProps = (state) => {
    return {
       tasks: state.tasks.tasks,
-      isLoading: state.ui.isLoading
+      isLoading: state.ui.isLoading,
+      choosedDate: state.date.choosedDate
    };
 };
 
@@ -124,6 +143,7 @@ const mapDispatchToProps = dispatch => {
          type: DELETE_TASK_SAGA,
          id: id
       }),
+      resetDate: () => dispatch({ type: RESET_DATE }),
       doSomething: () => dispatch({ type: DO_SOMETHING })
    }
 }

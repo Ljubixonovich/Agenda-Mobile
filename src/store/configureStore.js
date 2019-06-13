@@ -3,12 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 
 import uiReducer from './reducers/ui';
 import taskReducer from './reducers/tasks';
+import dateReducer from './reducers/date';
 import rootSaga from './sagas/index';
 
 
 const rootReducer = combineReducers({
    ui: uiReducer,
-   tasks: taskReducer
+   tasks: taskReducer,
+   date: dateReducer
 });
 
 let composeEnchancers = compose;

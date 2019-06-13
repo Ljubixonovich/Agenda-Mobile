@@ -1,6 +1,13 @@
 export const UI_START_LOADING = 'UI_START_LOADING';
 export const UI_STOP_LOADING = 'UI_STOP_LOADING';
 
+
+
+export const SET_DATE = 'SET_DATE';
+export const RESET_DATE = 'RESET_DATE';
+
+
+
 export const ADD_TASK_SAGA = 'ADD_TASK_SAGA';
 export const ADD_TASK_REDUCER = 'ADD_TASK_REDUCER';
 
@@ -12,5 +19,7 @@ export const DELETE_TASK_REDUCER = 'DELETE_TASK_REDUCER';
 
 export const GET_TASKS_SAGA = 'GET_TASKS_SAGA';
 export const GET_TASKS_REDUCER = 'GET_TASKS_REDUCER';
+
+
 
 export const DO_SOMETHING = 'DO_SOMETHING';
