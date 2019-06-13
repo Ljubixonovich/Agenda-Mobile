@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 
 import { SET_DATE, UI_START_LOADING } from '../../store/actions/actionTypes';
-import Txt from '../../components/UI/MainText';
 
 export class ChooseDateScreen extends Component {
    constructor(props) {
@@ -18,7 +17,6 @@ export class ChooseDateScreen extends Component {
    updateDate = (val) => {
       this.props.setDate(val);
 
-
       this.props.navigator.dismissModal({
          animationType: 'slide-down',
       });
@@ -28,7 +26,6 @@ export class ChooseDateScreen extends Component {
    render() {
       return (
          <View style={styles.mainContainer}>
-            <Txt> Choose Date </Txt>
             <DatePicker
                ref={(datepicker) => this.datepicker = datepicker}
                date={this.props.date}
@@ -54,6 +51,7 @@ export class ChooseDateScreen extends Component {
                }}
                onDateChange={(val) => this.updateDate(val)}
             />
+            <ActivityIndicator size="large" color="#0000ff"/>
          </View>
 
 
@@ -67,6 +65,8 @@ export class ChooseDateScreen extends Component {
 const styles = StyleSheet.create({
    mainContainer: {
       flex: 1,
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
       backgroundColor: 'white',
       width: '100%',
       height: '100%',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
    return {
-      isLoading: state.ui.isLoading
+     // isLoading: state.ui.isLoading
    };
 }
 
