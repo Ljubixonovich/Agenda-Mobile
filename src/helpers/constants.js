@@ -1,4 +1,4 @@
-export const daysBeforeToday = () => 90;
+export const daysBeforeToday = () => 45;
 
 export const numberOfDays = () => 366;
 

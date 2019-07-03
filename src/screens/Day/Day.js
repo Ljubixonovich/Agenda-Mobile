@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { getSerbianDate } from '../../helpers/dates';
 import Txt from '../../components/UI/MainText';
@@ -55,9 +56,10 @@ export class DayScreen extends Component {
                   {getSerbianDate(date)}
                </Txt>
                <TouchableOpacity  style={{padding: 14}} onPress={this.onAddTaskHandler}>
-                  <Image source={require('../../assets/new.png')} 
+                  {/* <Image source={require('../../assets/new.png')} 
                      style={styles.icon} 
-                  />
+                  /> */}
+                  <Icon name="md-add" size={30} color="#0AD217" />
                </TouchableOpacity>
             </View>
             <View style={{ flex: 5 }}>

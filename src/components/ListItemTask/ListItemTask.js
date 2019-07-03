@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import Txt from '../../components/UI/MainText';
 
@@ -15,17 +16,16 @@ const ListItemTask = props => {
 
             {task.important ?
                <View style={{ padding: 10 }}>
-                  <Image style={styles.icon}
+                  {/* <Image style={styles.icon}
                      source={require('../../assets/star.png')}
-                  />
+                  /> */}
+                  <Icon name="md-star" size={30} color="gold" />
                </View> 
                : 
                <View style={{ padding: 10 }}>
                   <Image style={styles.icon} />
                </View>
-            }
-
-            {/* <Txt>ID: {task.id}</Txt> */}            
+            }           
          </View>
 
          <View style={styles.bottomContainer}>
@@ -37,15 +37,17 @@ const ListItemTask = props => {
             <View style={styles.iconContainer}>
                <TouchableOpacity style={{ padding: 10 }}
                   onPress={() => props.onEditTaskHandler(task)}>
-                  <Image style={[styles.icon, styles.editIcon]}
+                  {/* <Image style={[styles.icon, styles.editIcon]}
                      source={require('../../assets/edit.png')}
-                  />
+                  /> */}
+                  <Icon name="md-create" size={30} color="#0738F4" />
                </TouchableOpacity>
                <TouchableOpacity style={{ padding: 10 }}
                   onPress={() => { props.connfirmDeleteTask(task.id) }}>
-                  <Image style={styles.icon}
+                  {/* <Image style={styles.icon}
                      source={require('../../assets/delete.png')}
-                  />
+                  /> */}
+                  <Icon name="md-close" size={30} color="#FF0000" />
                </TouchableOpacity>
             </View>
             
