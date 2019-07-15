@@ -49,6 +49,13 @@ export class TaskFormScreen extends Component {
             },
             touched: false
          },
+         unplanned: {            
+            value: this.props.editMode ? this.props.task.unplanned : this.props.sendFrom === 'UnplannedTasks' ? true : false,
+            valid: false,
+            validationRules: {
+            },
+            touched: false
+         },
          description: {
             value: this.props.editMode ? this.props.task.description : '',
             valid: false,
@@ -84,6 +91,7 @@ export class TaskFormScreen extends Component {
          date: this.state.controls.date.value,
          time: this.state.controls.time.value || '9.00',
          important: this.state.controls.important.value,
+         unplanned: this.state.controls.unplanned.value,
          description: this.state.controls.description.value
       };
 
@@ -103,18 +111,29 @@ export class TaskFormScreen extends Component {
             style={styles.mainContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                <View style={styles.inputContainer}>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-                     <Txt>Important: </Txt>
-                     <Switch
-                        onValueChange={(val) => this.updateInputState('important', val)}
-                        value={this.state.controls.important.value}
+                  <View style={{alignItems: 'center', marginBottom: 14}}>
+                     <DatePicker
+                        date={this.state.controls.date.value}
+                        onDateChange={(val) => this.updateInputState('date', val)}
                      />
                   </View>
-                  <DatePicker
-                     date={this.state.controls.date.value}
-                     onDateChange={(val) => this.updateInputState('date', val)}
-                  />
+
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                        <Txt>Important: </Txt>
+                        <Switch
+                           onValueChange={(val) => this.updateInputState('important', val)}
+                           value={this.state.controls.important.value}
+                        />
+                     </View>
+
+                     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                        <Txt>Unplanned: </Txt>
+                        <Switch
+                           onValueChange={(val) => this.updateInputState('unplanned', val)}
+                           value={this.state.controls.unplanned.value}
+                        />
+                     </View>
                   </View>
 
 
@@ -149,12 +168,6 @@ export class TaskFormScreen extends Component {
                   ></Imp>
 
                   <View style={styles.bottomContainer}>
-                     {/* <Txt>Date: </Txt>
-                     <DatePicker
-                        date={this.state.controls.date.value}
-                        onDateChange={(val) => this.updateInputState('date', val)}
-                     /> */}
-
                      <View >
                         <Btn color='#092ee8' width={90} textColor='white'
                            disabled={!this.state.controls.title.valid}

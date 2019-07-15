@@ -16,7 +16,7 @@ export class WeekScreen extends Component {
                   id: 'menu', 
                   component: 'agenda.PopupMenu', 
                   passProps: {
-                     actions: ['Today', 'Go to Date...', 'Daily View'],
+                     actions: ['Today', 'Go to Date...', 'Daily View', 'Unplanned Tasks'],
                      onPress: this.menuHandler
                   },
                   icon: sources
@@ -35,7 +35,14 @@ export class WeekScreen extends Component {
       else if (b === 2) { // Daily View
          startSingleScreenApp('agenda.DayContainer');
          // alert('Daily View');
-      }    
+      }   
+      else if (b === 3) { // Unplanned Tasks
+         this.props.navigator.showModal({
+            screen: 'agenda.UnplannedTasks',
+            title: 'Unplanned Tasks',
+            animationType: 'fade',
+         });
+      } 
    };
 
 

@@ -33,7 +33,7 @@ export class DayContainer extends Component {
                   id: 'menu', 
                   component: 'agenda.PopupMenu', 
                   passProps: {
-                     actions: ['Today', 'Go to Date...', 'Weekly View'],
+                     actions: ['Today', 'Go to Date...', 'Weekly View', 'Unplanned Tasks' ],
                      onPress: this.menuHandler
                   },
                   icon: sources
@@ -61,7 +61,8 @@ export class DayContainer extends Component {
    menuHandler = (a, b) => {
       if (b === 0) { // Today
          this.goToPage(daysBeforeToday());
-      } else if (b === 1) { // Go to Date...
+      } 
+      else if (b === 1) { // Go to Date...
          this.props.navigator.showModal({
             screen: 'agenda.ChooseDateScreen',
             title: 'Choose Date',
@@ -72,6 +73,13 @@ export class DayContainer extends Component {
       else if (b === 2) { // Weekly View
          startSingleScreenApp('agenda.WeekScreen');
       }    
+      else if (b === 3) { // Unplanned Tasks
+       this.props.navigator.showModal({
+         screen: 'agenda.UnplannedTasks',
+         title: 'Unplanned Tasks',
+         animationType: 'fade',
+      });
+      } 
    };
 
    goToPage = (pageId) =>{
@@ -85,6 +93,7 @@ export class DayContainer extends Component {
       }
       filteredTasks = tasks
          .filter(t => compareDates(t.date, date))
+         .filter(t => t.unplanned !== true)
          .sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
 
       return filteredTasks;

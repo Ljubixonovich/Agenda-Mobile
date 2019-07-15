@@ -11,6 +11,7 @@ import store from './src/store/configureStore';
 import startSingleScreenApp from './src/startSingleScreenApp';
 import PopupMenu from './src/components/PopupMenu/PopupMenu';
 import ChooseDateScreen from './src/screens/ChooseDateScreen/ChooseDateScreen';
+import UnplannedTasks from './src/screens/UnplannedTasks/UnplannedTasks';
 
 
 Navigation.registerComponent('agenda.WelcomeScreen', () => WelcomeScreen, store, Provider);
@@ -22,6 +23,7 @@ Navigation.registerComponent('agenda.MonthScreen', () => MonthScreen, store, Pro
 Navigation.registerComponent('agenda.TaskFormScreen', () => TaskFormScreen, store, Provider);
 Navigation.registerComponent('agenda.ChooseDateScreen', () => ChooseDateScreen, store, Provider);
 Navigation.registerComponent('agenda.PopupMenu', () => PopupMenu, store, Provider);
+Navigation.registerComponent('agenda.UnplannedTasks', () => UnplannedTasks, store, Provider);
 
 // Start App
 export default () => {

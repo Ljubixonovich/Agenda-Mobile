@@ -19,7 +19,7 @@ export class DayScreen extends Component {
          screen: 'agenda.TaskFormScreen',
          title: 'Add Task',
          animationType: 'fade',
-         passProps: {editMode: false, date: this.props.date},
+         passProps: {editMode: false, date: this.props.date, sendFrom: 'DayScreen'},
          });
    }
 
@@ -30,7 +30,7 @@ export class DayScreen extends Component {
          screen: 'agenda.TaskFormScreen',
          title: 'Edit Task',
          animationType: 'fade',
-         passProps: {editMode: true, task: task, date: this.props.date},
+         passProps: {editMode: true, task: task, date: this.props.date, sendFrom: 'DayScreen'},
       });
    }
 
