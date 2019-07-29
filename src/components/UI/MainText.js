@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   mainText: {
     color: 'black',
     backgroundColor: 'transparent',
-    fontSize: 18
+    fontSize: 16
   }
 });
 

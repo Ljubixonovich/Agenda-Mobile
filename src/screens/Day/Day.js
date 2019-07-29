@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#bbb', 
    },
    mainTitle: {
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',
       color: 'black',

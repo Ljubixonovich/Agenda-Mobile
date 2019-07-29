@@ -137,7 +137,6 @@ export class TaskFormScreen extends Component {
                   </View>
 
 
-                  <Txt>Title: </Txt>
                   <Imp
                      placeholder='Title' style={styles.input}
                      value={this.state.controls.title.value}
@@ -146,7 +145,6 @@ export class TaskFormScreen extends Component {
                      onChangeText={(val) => this.updateInputState('title', val)}
                   ></Imp>
 
-                  <Txt>Time: </Txt>
                   <Imp
                      placeholder='Time' style={styles.input}
                      value={this.state.controls.time.value}
@@ -156,7 +154,6 @@ export class TaskFormScreen extends Component {
                      onChangeText={(val) => this.updateInputState('time', val)}
                   ></Imp>
 
-                  <Txt>Description: </Txt>
                   <Imp
                      placeholder='Description' style={styles.input}
                      value={this.state.controls.description.value}
