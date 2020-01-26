@@ -78,10 +78,7 @@ export class UnplannedTasks extends Component {
          filteredTasks = tasks
             .filter(t => t.unplanned === true)
             .sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
-      } else {
-         alert('ne postoji');
       }
-
 
       return filteredTasks;
    }
