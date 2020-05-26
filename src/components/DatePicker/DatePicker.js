@@ -24,8 +24,8 @@ export default class LjDatePicker extends Component {
             defaultValue={null}
             placeholder="select date"
             format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2020-06-01"
+            minDate="2020-05-15"
+            maxDate="2026-06-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
