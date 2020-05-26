@@ -7,7 +7,7 @@ import { GET_TASKS_SAGA, DELETE_TASK_SAGA } from '../../store/actions/actionType
 import { getToday } from '../../helpers/dates';
 import ListItemTask from '../../components/ListItemTask/ListItemTask';
 
-export class UnplannedTasks extends Component {
+export class AllTasks extends Component {
    constructor(props) {
       super(props);
    }
@@ -74,7 +74,6 @@ export class UnplannedTasks extends Component {
       let filteredTasks = [];
       if (tasks && tasks.length > 0) {
          filteredTasks = tasks
-            .filter(t => t.unplanned === true)
             .sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
       }
 
@@ -140,4 +139,4 @@ const mapDispatchToProps = dispatch => {
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UnplannedTasks);
+export default connect(mapStateToProps, mapDispatchToProps)(AllTasks);

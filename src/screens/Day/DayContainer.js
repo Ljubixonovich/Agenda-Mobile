@@ -33,7 +33,7 @@ export class DayContainer extends Component {
                   id: 'menu', 
                   component: 'agenda.PopupMenu', 
                   passProps: {
-                     actions: ['Today', 'Go to Date...', 'Weekly View', 'Unplanned Tasks' ],
+                     actions: ['Today', 'Go to Date...', 'Weekly View', 'Unplanned Tasks', 'All Tasks' ],
                      onPress: this.menuHandler
                   },
                   icon: sources
@@ -73,13 +73,20 @@ export class DayContainer extends Component {
       else if (b === 2) { // Weekly View
          startSingleScreenApp('agenda.WeekScreen');
       }    
-      else if (b === 3) { // Unplanned Tasks
+      else if (b === 3) {
        this.props.navigator.showModal({
          screen: 'agenda.UnplannedTasks',
          title: 'Unplanned Tasks',
          animationType: 'fade',
       });
-      } 
+      }
+      else if (b === 4) {
+        this.props.navigator.showModal({
+          screen: 'agenda.AllTasks',
+          title: 'All Tasks',
+          animationType: 'fade',
+       });
+       }
    };
 
    goToPage = (pageId) =>{

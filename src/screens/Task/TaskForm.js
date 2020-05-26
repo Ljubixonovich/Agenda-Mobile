@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
    },
    inputContainer: {
       flex: 1,
-     // justifyContent: 'center',
      justifyContent: 'flex-end',
       paddingRight: 20,
       paddingLeft: 20
