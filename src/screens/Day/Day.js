@@ -9,7 +9,7 @@ import ListItemTask from '../../components/ListItemTask/ListItemTask';
 
 export const DayScreen = (props) => {
 
-   const { tasks, date } = props;
+   const { tasks, date, isToday } = props;
 
    onAddTaskHandler = () => {
       props.navigator.showModal({
@@ -45,7 +45,10 @@ export const DayScreen = (props) => {
             <View>
                <Image style={styles.icon} />
             </View>
-            <Txt style={styles.mainTitle}>
+            <Txt style={[
+               styles.mainTitle,
+               isToday && {color: 'blue'},
+            ]}>
                {getSerbianDate(date)}
             </Txt>
             <TouchableOpacity style={{ padding: 14 }} onPress={onAddTaskHandler}>

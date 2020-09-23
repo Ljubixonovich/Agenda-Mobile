@@ -106,6 +106,10 @@ export class DayContainer extends Component {
       return filteredTasks;
    }
 
+   getIsToday = (date) => {
+      return compareDates(date, this.state.dateToday)
+   }
+
    render() {
       if (this.props.isLoading) {
          return (
@@ -136,6 +140,7 @@ export class DayContainer extends Component {
                      tasks={this.filterTasks(date)} 
                      onDeleteTask={this.props.onDeleteTask}
                      navigator={this.props.navigator}
+                     isToday={this.getIsToday(date)}
                   />
                </View>
             )}
